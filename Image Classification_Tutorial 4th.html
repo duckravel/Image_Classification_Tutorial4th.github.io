@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <title>Image Classfication</title>
+</head>
+<style>
+
+</style>
+<body>
+     <!-- Image and text -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="navbar-brand" href="#">Satellite Imagery Classification</div>
+    </nav>
+    <section class='title'>
+    <div class="container mt-3">
+        <p> <strong class="text-primary">Congradulation!</strong> 
+            You are going to finish the tutorial. Image classification is a common satellite imagery analysis. Satellite imagery records enormous information on the ground, however, to utilize the ground information, we need to transform it to vector format for bounding attribute information such as type of land, owner of the land, area, perimeter.  In the past time, people need to manually identify the parcel on the imagery and then digitalize it. It takes a lot of time to process the data,  so the scientists integrate the use of statistics to mitigate human resource in this transformation process. In the previous tutorial, we mentioned each object in the imagery has different spectral characteristics. By identifying the spectral pattern in the satellite imagery, we can generate classes and transform them into the vector format. Look at the example in the figure. It is a scatter plot of red and infrared spectral for each land cover. Each class shows the cluster in the scatter plot. The statistics utilize this characteristic to cluster the spectral and come up with the land cover classification. 
+        </p>
+        <div class="text-center">
+            <img src="featurespace.png" class="rounded" style='max-width:30%; height:auto;' alt="Land cover and spectral scatter plot">
+            <p class="text-secondary"><small>Fig 1. Land cover and spectral scatter plot</small></p>
+        </div>
+        <p>
+            The workflow of image classification describes in the figure below. Firstly, extracting the training dataset by supervised or unsupervised approaches. The trained dataset is the answer for the machine, then it assigns pixels into classifications based on spectral similarity.
+        </p>
+        <div class="text-center">
+            <img src="work flow.png" class="rounded" style='max-width:60%; height:auto;' alt="Land cover and spectral scatter plot">
+            <p class="text-secondary"><small>Fig 2. Classification workflow</small></p>
+        </div>
+            <!-- In this turtorial, we are going to deliver:
+            <ul>
+                <li><a href="#concept">Common classification approach</a></li>
+                <li><a href="#practice">Practice of image classification</a> </li>
+            </ul>      -->
+    </div>
+    </section>
+    <section id="concept">
+        <div class="container mt-3">
+        <h5> <strong>Common Classification Approaches</strong> </h5>
+        <h6 class="mt-3">Unsupervised Classification </h6>
+        <p>In unsupervised classification, it groups pixel based on their specturm signiture value, and come out with multiple clusters which refer to a type of land cover. The common method includes:</p>
+        <ul>
+            <li>K-means</li>
+            <li>ISOData</li>
+        </ul>
+        <h6 class="mt-5">Supervised Classification </h6>
+        <p></p>
+        <div class='row mt-3'>
+            <div class='col-md-4'>Minimum Distance 
+                <div class="text-left">
+                    <img src="minimum_distance.PNG" class="rounded" style='max-width:60%; height:auto;' alt="Land cover and spectral scatter plot">
+                </div>
+            </div>
+            <div class='col-md-8'>The minimum distance calculates the difference between a pixel and trained sets, then assigns the pixel to the classification with the smallest difference. 
+                However, it doesn't consider the distribution of an object and result some absurd classification result.
+                
+            </div>
+        </div>
+        <div class='row mt-3'>
+            <div class='col-md-4'>Maximum Likelihood Classification
+                <div class="text-left">
+                    <img src="maximum_likelihood.PNG" class="rounded" style='max-width:60%; height:auto;' alt="Land cover and spectral scatter plot">
+                </div>
+            </div>
+            <div class='col-md-8'>The maximum likelihood classification assume the spectral is a normal distribution, so it takes the mean value and the standard deviation from trained sets and generate a prosibility distribution. The pixel will be assigned to the classification with most similar spectral distribution. 
+            </div>
+        </div>
+
+        </div>
+    </section>
+    <section id="pratice">
+        <div class="container mt-5">
+        <h5> <strong>Practice of Image Classification</strong> </h5>
+    
+        </div>
+    </section>
+    
+    <div class="container">
+        <h6 class="mt-5">Reference</h6>
+        <ul>
+            <li>Alfred Stein, Valentyn Tolpekin. THE CORE OF GISCIENCE:A SYSTEMS-BASED APPROACH,International Institute for Geo-Information Science and Earth Observations (ITC), 2012 - 524</li>
+            <li>Asid Ur Rehman,2017. Comparison of High Resolution Satellite Image Classiﬁcation Techniques for
+                Urban Applications</li>
+        </ul>
+    </div>
+</body>
+</html>
