@@ -34,11 +34,12 @@
             <img src="workflow.PNG" class="rounded" style='max-width:60%; height:auto;' alt="Land cover and spectral scatter plot">
             <p class="text-secondary"><small>Fig 2. Classification workflow</small></p>
         </div>
-            <!-- In this turtorial, we are going to deliver:
+            In this turtorial, we will deliver:
             <ul>
                 <li><a href="#concept">Common classification approach</a></li>
+                <li><a href="#process"> Process your raster data</a> </li>
                 <li><a href="#practice">Practice of image classification</a> </li>
-            </ul>      -->
+            </ul>     
     </div>
     </section>
     <section id="concept">
@@ -75,7 +76,52 @@
 
         </div>
     </section>
-    <section id="pratice">
+    <section id='process'>
+<div class="container mt-5">
+        <h5> <strong>Process your raster data</strong> </h5>
+        <p>
+            Loading the raster image to QGIS, and click on the raster in the left.
+            <br> <img src="img/1.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+        </p>
+        <p>Then click on the brows data where your raster data set is. Add your data
+            <br><img src="img/2.png" alt=""style="max-width:70%; height:auto;">
+        </p>
+        <p>After adding the data, we need to make a composite of all the bands. We have 12 bands in this imagery but for our purpose we need only 3 bands that are: Red, Green and Blue. Information about the bands of the imagery can be found in the meta data as well as on the website of the satellite imagery which we have downloaded. 
+            We will use Build Virtual Raster tool to create a band composite. The reason for making band composite is that we need to clip or extract our area of interest from the whole imagery. So, for that purpose we need a single imagery which has the required bands in it, instead of single imagery of each band.             
+            <br><img src="img/3.png" alt="" style="max-width:70%; height:auto;">
+        </p>
+        <p>In the input of Build Virtual Raster, we will put all the bands which we need such as RGB
+            <br><img src="img/4.png" alt="" style="max-width:70%; height:auto;">
+        </p>
+        <p>Then give the output path and run the tool. The result can be seen below
+            <br><img src="img/5.png" alt="" style="max-width:70%; height:auto;">
+        </p>
+        <p>As you see in the imagery in not representing the true colour of the objects such as vegetation, forest, building etc. Therefore, we need to change display of image to true colour by arranging its bands. Right click on the raster layer, go to properties and click on the symbology to see its band combination.
+            <br><img src="img/6.png" alt="" style="max-width:70%; height:auto;">
+        </p>
+        <p>In this screenshot you can see the band combination. Originally it was 1, 2 and 3. 
+            <br><img src="img/7.png" alt="" style="max-width:70%; height:auto;">
+        </p>
+        <p>Now we have change it into 3, 2 and 1, that means Red Green and Blue (RGB). The reason to do so is to see the true colour of the objects in the imagery in order to easily identify during creating sample point or polygons. Before that it was in false colour, which make it hard to identify the objects in the image. For this purpose, we need a true colour to choose the right class during creating sample points/polygon.  
+            <br><img src="img/8.png" alt="" style="max-width:70%; height:auto;">
+        </p>
+        <p>Now we have to extract out study area. Because the image is too large for this tutorial, therefore we will just extract some of its part for your understanding. You can extract your area of interest from any satellite imagery using the same method. 
+            For extraction we will use Clip Raster by Extent tool
+            <br><img src="img/9.png" alt="" style="max-width:70%; height:auto;">
+        </p>
+        <p>
+            Input layer will be the original raster imagery while the input clipping layer we will draw it by our self as we don’t have shapefile for this area so we will create our own just by drawing it
+            <br><img src="img/10.png" alt="" style="max-width:70%; height:auto;">
+        </p>
+        <p>After clicking on the Draw on Canvas we have draw area of our choice in a rectangular form just by clicking on the imagery from one side. It creates coordinates as can be seen in the image below in the clipping extract section
+            We Can select a shapefile of the area of interest too but in this case, we don’t have a shapefile therefore we are using this method. You can create your own shapefile too using digitization tools in QGIS.            
+            <br><img src="img/11.png" alt="" style="max-width:70%; height:auto;">
+        </p>
+        <p>After running the tool, the selected area or our area of interest has been extracted. 
+            <br><img src="img/12.png" alt="" style="max-width:70%; height:auto;"></p>       
+        </div>
+    </section>
+    <section id="practice">     
         <div class="container mt-5">
         <h5> <strong>Practice of Image Classification</strong> </h5>
         
