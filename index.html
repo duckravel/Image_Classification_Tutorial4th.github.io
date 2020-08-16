@@ -82,43 +82,57 @@
         <p>
             Loading the raster image to QGIS, and click on the raster in the left.
             <br> <img src="img/1.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 3. Add data-1</small>
         </p>
-        <p>Then click on the brows data where your raster data set is. Add your data
+        <p>Then click on the browse data where your raster data set is. Add your data
             <br><img src="img/2.png" alt=""style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 4. Add data-2</small>
         </p>
-        <p>After adding the data, we need to make a composite of all the bands. We have 12 bands in this imagery but for our purpose we need only 3 bands that are: Red, Green and Blue. Information about the bands of the imagery can be found in the meta data as well as on the website of the satellite imagery which we have downloaded. 
+        <p>After adding the data, we need to make a composite of all bands. We have 12 bands in this imagery but for our purpose we need only 3 bands that are: Red, Green and Blue. Information about the bands of the imagery can be found in the meta data as well as on the website of the satellite imagery which we have downloaded. 
             We will use Build Virtual Raster tool to create a band composite. The reason for making band composite is that we need to clip or extract our area of interest from the whole imagery. So, for that purpose we need a single imagery which has the required bands in it, instead of single imagery of each band.             
             <br><img src="img/3.png" alt="" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 5. Compose the bands-1</small>
         </p>
-        <p>In the input of Build Virtual Raster, we will put all the bands which we need such as RGB
+        <p>In the input of Build Virtual Raster, we will put the bands which we need such as R,G, and B
             <br><img src="img/4.png" alt="" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 6. Compose the bands -2</small>
         </p>
         <p>Then give the output path and run the tool. The result can be seen below
             <br><img src="img/5.png" alt="" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 7. Run and check result</small>
         </p>
-        <p>As you see in the imagery in not representing the true colour of the objects such as vegetation, forest, building etc. Therefore, we need to change display of image to true colour by arranging its bands. Right click on the raster layer, go to properties and click on the symbology to see its band combination.
+        <p>As you see, the imagery is not represented with the true colour of the objects such as vegetation, forest, building etc. Therefore, we need to change display of image to true colour by arranging its bands. Right click on the raster layer. To fix this, go to properties and click on the symbology to see its band combination.
             <br><img src="img/6.png" alt="" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 8. Wrong color representation </small>
         </p>
         <p>In this screenshot you can see the band combination. Originally it was 1, 2 and 3. 
             <br><img src="img/7.png" alt="" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 9. Fix colore representation </small>
         </p>
-        <p>Now we have change it into 3, 2 and 1, that means Red Green and Blue (RGB). The reason to do so is to see the true colour of the objects in the imagery in order to easily identify during creating sample point or polygons. Before that it was in false colour, which make it hard to identify the objects in the image. For this purpose, we need a true colour to choose the right class during creating sample points/polygon.  
+        <p>Now we have change it into 3, 2 and 1, that means red, green, and blue (RGB). The reason to do so is to see the true colour of the objects in the imagery in order to easily identify during creating sample points or polygons. 
+            Before that it was in false colour, which makes it hard to identify the objects in the image. 
+            For this purpose, we need a true colour to choose the right class during creating sample points/polygon.  
             <br><img src="img/8.png" alt="" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 10. Select bands </small>
         </p>
         <p>Now we have to extract out study area. Because the image is too large for this tutorial, therefore we will just extract some of its part for your understanding. You can extract your area of interest from any satellite imagery using the same method. 
             For extraction we will use Clip Raster by Extent tool
             <br><img src="img/9.png" alt="" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 11. Extract study area</small>
         </p>
         <p>
             Input layer will be the original raster imagery while the input clipping layer we will draw it by our self as we don’t have shapefile for this area so we will create our own just by drawing it
             <br><img src="img/10.png" alt="" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 12. Extract study area</small>
         </p>
         <p>After clicking on the Draw on Canvas we have draw area of our choice in a rectangular form just by clicking on the imagery from one side. It creates coordinates as can be seen in the image below in the clipping extract section
-            We Can select a shapefile of the area of interest too but in this case, we don’t have a shapefile therefore we are using this method. You can create your own shapefile too using digitization tools in QGIS.            
+            We Can select a shapefile of the area of interest too but in this case, we don’t have a shapefile therefore we are using this method. You can create your own shapefile too using digitization tools in QGIS.
             <br><img src="img/11.png" alt="" style="max-width:70%; height:auto;">
+            <br><small class="text-secondary"> Fig 13. Extract study area-2</small>
         </p>
         <p>After running the tool, the selected area or our area of interest has been extracted. 
-            <br><img src="img/12.png" alt="" style="max-width:70%; height:auto;"></p>       
+            <br><img src="img/12.png" alt="" style="max-width:70%; height:auto;"></p>
+            <br><small class="text-secondary"> Fig 14. Extract study area and the result</small>
         </div>
     </section>
     <section id="practice">     
@@ -129,20 +143,25 @@
            <li><h6>Create the Training Input file</h6>
             <p> Download the data from Sceibo, then open the QGIS and the Semi-Automatic Classification plug-in, and then you will see the tool bar and the control dock of SCP.</p>
             <img src="SCP.PNG" alt="SCP plug-in" style='max-width:50%; height:auto;'> 
-            <br><small class="text-secondary">Fig 3. SCP toolbar and dock window</small>
+            <br><small class="text-secondary">Fig 15. SCP toolbar and dock window</small>
             <br>
             Load your raster by clicking the button <img src="SCP_window.PNG" alt="Plug-in window" srcset=""> in the SCP toolbar. Select bandset in the pop-up window and load raster data in multiple band list drop-down selection.
             On the left side of dock panel, there are three tabs - home, training input, and classification. Go to tab <strong>Training input</strong> then select the button <strong> create a new training set</strong>
             <img src="newset.PNG" alt="create new sets button" >, naming your training set file and save.
             <br>
             <img src="scp_dock_ts.png" class='mt-2'alt="SCP Dock" style='max-width:30%; height:auto;'>
-            <br><small class="text-secondary">Fig 4. Gnerate Training sets</small>
+            <br><small class="text-secondary">Fig 16. Gnerate Training sets</small>
             <div class="mb-2"></div>
         </li>
            <li><h6>Create Region of interest</h6>
-            <p> We are going to create Regions of Interest (ROIs). In SCP, each ROI is registered with a CID (Class ID),then several CIDs can catogorize into a land cover class through a MID (Macroclass), namely MID is the land cover.
-                A good training dataset have the representive signature which can identify types of land cover. Normally, a land cover has a certain variety in their spectrum value due to the slight different in texture or angle. For example, both banana tree and bush can be classified into vegetation, but they have slightly different spectral characteristics.
-                Therefore, we need to collect several ROIs to achieve a better classification result. The table below is our designed classification:
+            <p> We are going to create Regions of Interest (ROIs). In SCP, each ROI is registered with a CID 
+                (Class ID), then several CIDs can categorize into a land cover class through a MID (Macroclass),
+                 namely MID is the land cover. A good training dataset has the representative signature which can 
+                 identify types of land cover. Normally, a land cover has a certain variety in its 
+                 spectrum value due to the slight difference in texture or angle. For example, both 
+                 banana tree and bush can be classified into vegetation, but they have slightly 
+                 different spectral characteristics. Therefore, we need to collect several ROIs to 
+                 achieve a better classification result. The table below is our designed classification:
                 <div class="row">
                     <div class="col-md-8">
                         <table class="table table-striped">
@@ -154,7 +173,7 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <td>Vegetation</td>
+                                <td>Road</td>
                                 <td>1</td>
                               </tr>
                               <tr>
@@ -162,8 +181,24 @@
                                 <td>2</td>
                               </tr>
                               <tr>
-                                <td>Open Land</td>
+                                <td>Water</td>
                                 <td>3</td>
+                              </tr>
+                              <tr>
+                                <td>Forest</td>
+                                <td>3</td>
+                              </tr>
+                              <tr>
+                                <td>Agriculture</td>
+                                <td>4</td>
+                              </tr>
+                              <tr>
+                                <td>Green space</td>
+                                <td>5</td>
+                              </tr>
+                              <tr>
+                                <td>Other</td>
+                                <td>6</td>
                               </tr>
                             </tbody>
                           </table>
@@ -171,13 +206,15 @@
                 </div>
             </p>
             <p class="mt-2">
-                Left click on the ROI button on the SCP toolbar, then draw on map with left clicks, then use right click to finish the sketching. You will see a polygon which is a temporary file. To save file, type the land cover classification name, and other id information in the bottom section.
-                <img class="mt-3" src="classify_1.PNG" alt="Classification Information" style='max-width:30%; height:auto;'>
-                <br><small class="text-secondary"> Fig 5. ROI information</small>
+                Left-click on the ROI button on the SCP toolbar, then draw on the map with left clicks, then use the right-click to finish the sketching. You will see a polygon which is a temporary file. To save the file, type the land cover classification name, and other id information in the bottom section.
+                <br><img class="mt-3" src="training.gif" alt="Classification Information" style='max-width:30%; height:auto;'>
+                <br><small class="text-secondary"> Fig 17. Create ROI</small>
+                <br><img class="mt-3" src="classify_1.PNG" alt="Classification Information" style='max-width:30%; height:auto;'>
+                <br><small class="text-secondary"> Fig 18. Set ROI Information</small>
                 <br>
-                Finally, click <strong>'save temporary ROI into training input'</strong> <img src="classify_2.PNG" alt="Save into training input">. Repeat the work until your collect enough training sets. There is no standard for how many training sets should be collected, however, you should ensure your training dataset are evenly extracted from the study area.
+                Finally, click <strong>'save temporary ROI into training input'</strong> <img src="classify_2.PNG" alt="Save into training input">. Repeat the work until you collect enough training sets. There is no standard for how many training sets should be collected, however, you should ensure your training dataset is evenly extracted from the study area.
                 <img class="mt-3" src="classify_3.PNG" style='max-width:50%; height:auto;'>
-                <br><small class="text-secondary">Fig 6. Training sets</small>
+                <br><small class="text-secondary">Fig 19. Training sets</small>
             </p>
             <div class="mb-2"></div>
            </li>
@@ -186,17 +223,17 @@
                 Before running a classiﬁcation (or a preview), set the color of land cover classes that will be displayed in the classiﬁcation raster. 
                 Go to the macroclass list and double click on the color in SCP dock and select a suitable color. 
                 <br><img class="mt-3"src="color.png" alt="Color setting"  style='max-width:50%; height:auto;'>
-                <br><small class="text-secondary">Fig 7. Change Color of Classification</small>
+                <br><small class="text-secondary">Fig 20. Change Color of Classification</small>
             </p>
             <p>
-                Then go to the tab classification, and select algorithm for classification, in our case, we choose <strong>Maximum Likelihood</strong>  in algorithm dropdown. If you want to preview the result, go to the scp toolbar, and select preview
+                Then go to the tab classification, and select algorithm for classification, in our case, we choose <strong>Maximum Likelihood</strong>  in algorithm dropdown. If you want to preview the result, go to the SCP toolbar, and select preview
                 <img src="preview.PNG" alt="preview">.
             </p>
             <p>
                 In this stage, you can modify your training dataset by deleting or adding polygons, the result won't generate a file.
                 Now let's generate the result by clicking <strong>run</strong> in the classification tab. Then you will get your result!
                 <br><img class="mt-3" src="Result1.PNG" alt="" srcset="">
-                <br><small class="text-secondary">Fig 8. Result</small>
+                <br><small class="text-secondary">Fig 21. Result</small>
                    
             <div class="mb-2"></div>
            </li>
