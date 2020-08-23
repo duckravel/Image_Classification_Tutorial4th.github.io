@@ -20,8 +20,7 @@
 
     <section class='title'>
     <div class="container mt-3">
-        <p> <strong class="text-primary">Congradulation!</strong> 
-            You are going to finish the tutorial. Image classification is a common satellite imagery analysis. Satellite imagery records enormous information on the ground, however, to utilize the ground information, we need to transform it to vector format for bounding attribute information such as type of land, owner of the land, area, perimeter.  In the past time, people need to manually identify the parcel on the imagery and then digitalize it. It takes a lot of time to process the data,  so the scientists integrate the use of statistics to mitigate human resource in this transformation process. In the previous tutorial, we mentioned each object in the imagery has different spectral characteristics. By identifying the spectral pattern in the satellite imagery, we can generate classes and transform them into the vector format. Look at the example in the figure. It is a scatter plot of red and infrared spectral for each land cover. Each class shows the cluster in the scatter plot. The statistics utilize this characteristic to cluster the spectral and come up with the land cover classification. 
+        <p> This is the 4th tutorial. Image classification is a common satellite imagery analysis. Satellite imagery records enormous information on the ground, however, to utilize the ground information, we need to transform it to vector format for bounding attribute information such as type of land, owner of the land, area, perimeter.  In the past time, people need to manually identify the parcel on the imagery and then digitalize it. It takes a lot of time to process the data,  so the scientists integrate the use of statistics to mitigate human resource in this transformation process. In the previous tutorial, we mentioned each object in the imagery has different spectral characteristics. By identifying the spectral pattern in the satellite imagery, we can generate classes and transform them into the vector format. Look at the example in the figure. It is a scatter plot of red and infrared spectral for each land cover. Each class shows the cluster in the scatter plot. The statistics utilize this characteristic to cluster the spectral and come up with the land cover classification. 
         </p>
         <div class="text-center">
             <img src="featurespace.PNG" class="rounded" style='max-width:30%; height:auto;' alt="Land cover and spectral scatter plot">
@@ -37,21 +36,20 @@
             In this turtorial, we will deliver:
             <ul>
                 <li><a href="#concept">Common classification approach</a></li>
-                <li><a href="#process"> Process your raster data</a> </li>
-                <li><a href="#practice">Practice of image classification</a> </li>
+                <li><a href="#practice">Implementation of image classification</a> </li>
             </ul>     
     </div>
     </section>
     <section id="concept">
         <div class="container mt-3">
-        <h5> <strong>Common Classification Approaches</strong> </h5>
-        <h6 class="mt-3">Unsupervised Classification </h6>
+        <h4> <strong>Common Classification Approaches</strong> </h4>
+        <h5 class="mt-3">Unsupervised Classification </h5>
         <p>In unsupervised classification, it groups pixel based on their specturm signiture value, and come out with multiple clusters which refer to a type of land cover. The common method includes:</p>
         <ul>
             <li>K-means</li>
             <li>ISOData</li>
         </ul>
-        <h6 class="mt-5">Supervised Classification </h6>
+        <h5 class="mt-5">Supervised Classification </h5>
         <p></p>
         <div class='row mt-3'>
             <div class='col-md-4'>Minimum Distance 
@@ -76,169 +74,257 @@
 
         </div>
     </section>
-    <section id='process'>
-<div class="container mt-5">
-        <h5> <strong>Process your raster data</strong> </h5>
+    <section id='practice'>
+        <div class="container mt-5">
+            <h4> <strong>Implementation of image classification</strong> </h4>
+            <p class="mt-3">
+                First of all, download and extract the raster image which we have added in a Zip folder form, called “Clip area”. This is the pre-processed image which you are going to work with in this tutorial. We will show you that how we have pre-processed this Sentinel-2 satellite imagery. You can follow these steps on your personal interests as in this tutorial we don’t have much time to discuss each and everything in such detail. But we will discuss how we did the Pre processing to get ready this imagery for classification. Just go through it for your understanding as we have already provided you the pre-processed imagery. 
+            </p>
+            <p> Before any implementation,we will need QGIS Plugin,If you have not installed the Semi Automatic Classification Plugin then watch our 3rd tutorial video about QGIS Plugins. 
+                Another option is to click on the Plugins in QGIS and write a Semi Automatic Classification in the search box, install that plugin if its not already installed in your systems.
+                After installing the plugin, you can see the main menu bar of QGIS “SCP” tab. 
+             </p>
+            <p>
+                To sucessfully implement the image classification, you will need to follow the sections below and operate the QGIS:
+                <ol>
+                    <li><a href="#Loaddata">Load data</a> </li>
+                    <li> <a href="#Extract" class="text-secondary">Data preprocessing - Extract area and bands</a>
+                    <br><small class="text-warning" > <strong>Extended sections for understanding how we process the data and no need operation in the QGIS</strong></small></li>
+                    <li><a href="#Composite">Data preprocessing - Band Composite</a> </li>
+                    <li><a href="#Classification">Image Classification</a></li>
+                </ol>
+                Now, you have to just load the pre-processed image which we have provided to you. 
+                You can follow the steps after the pre-processing. 
+            </p>
+        </div>
+
+    </section>
+    <section id='Loaddata'>
+    <div class="container mt-5">
+        <h5 class="mb-3">Loading the raster image to QGIS</h5>
         <p>
-            Loading the raster image to QGIS, and click on the raster in the left.
+            Click on the raster in the left
             <br> <img src="img/1.png" alt="" class="my-2" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 3. Add data-1</small>
-        </p>
-        <p>Then click on the browse data where your raster data set is. Add your data
-            <br><img src="img/2.png" alt=""style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 4. Add data-2</small>
-        </p>
-        <p>After adding the data, we need to make a composite of all bands. We have 12 bands in this imagery but for our purpose we need only 3 bands that are: Red, Green and Blue. Information about the bands of the imagery can be found in the meta data as well as on the website of the satellite imagery which we have downloaded. 
-            We will use Build Virtual Raster tool to create a band composite. The reason for making band composite is that we need to clip or extract our area of interest from the whole imagery. So, for that purpose we need a single imagery which has the required bands in it, instead of single imagery of each band.             
-            <br><img src="img/3.png" alt="" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 5. Compose the bands-1</small>
-        </p>
-        <p>In the input of Build Virtual Raster, we will put the bands which we need such as R,G, and B
-            <br><img src="img/4.png" alt="" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 6. Compose the bands -2</small>
-        </p>
-        <p>Then give the output path and run the tool. The result can be seen below
-            <br><img src="img/5.png" alt="" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 7. Run and check result</small>
-        </p>
-        <p>As you see, the imagery is not represented with the true colour of the objects such as vegetation, forest, building etc. Therefore, we need to change display of image to true colour by arranging its bands. Right click on the raster layer. To fix this, go to properties and click on the symbology to see its band combination.
-            <br><img src="img/6.png" alt="" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 8. Wrong color representation </small>
-        </p>
-        <p>In this screenshot you can see the band combination. Originally it was 1, 2 and 3. 
-            <br><img src="img/7.png" alt="" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 9. Fix colore representation </small>
-        </p>
-        <p>Now we have change it into 3, 2 and 1, that means red, green, and blue (RGB). The reason to do so is to see the true colour of the objects in the imagery in order to easily identify during creating sample points or polygons. 
-            Before that it was in false colour, which makes it hard to identify the objects in the image. 
-            For this purpose, we need a true colour to choose the right class during creating sample points/polygon.  
-            <br><img src="img/8.png" alt="" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 10. Select bands </small>
-        </p>
-        <p>Now we have to extract out study area. Because the image is too large for this tutorial, therefore we will just extract some of its part for your understanding. You can extract your area of interest from any satellite imagery using the same method. 
-            For extraction we will use Clip Raster by Extent tool
-            <br><img src="img/9.png" alt="" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 11. Extract study area</small>
         </p>
         <p>
-            Input layer will be the original raster imagery while the input clipping layer we will draw it by our self as we don’t have shapefile for this area so we will create our own just by drawing it
-            <br><img src="img/10.png" alt="" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 12. Extract study area</small>
+            Then click on the brows data where your raster data set is. Add your data
+            <br> <img src="img/2.png" alt="" class="my-2" style="max-width:70%; height:auto;">
         </p>
-        <p>After clicking on the Draw on Canvas we have draw area of our choice in a rectangular form just by clicking on the imagery from one side. It creates coordinates as can be seen in the image below in the clipping extract section
-            We Can select a shapefile of the area of interest too but in this case, we don’t have a shapefile therefore we are using this method. You can create your own shapefile too using digitization tools in QGIS.
-            <br><img src="img/11.png" alt="" style="max-width:70%; height:auto;">
-            <br><small class="text-secondary"> Fig 13. Extract study area-2</small>
+        <p>
+            <strong>Setting the coordinate system of the input data and QGIS</strong>
+            <br>If the loaded imagery is not showed in the QGIS window, it is because of the difference in the coordinate system of the imagery and QGIS. For this purpose, follow the steps below to set the same coordinate system in QGIS as of imagery.
+            First of all, go to setting and then options:
+            <br> <img src="img/3.png" alt="" class="my-2" style="max-width:70%; height:auto;">
         </p>
-        <p>After running the tool, the selected area or our area of interest has been extracted. 
-            <br><img src="img/12.png" alt="" style="max-width:70%; height:auto;"></p>
-            <br><small class="text-secondary"> Fig 14. Extract study area and the result</small>
+        <p>
+            Click on the CRS and make sure that your system has the exact same setting as below, click OK and restart your QGIS and load the same data. Now it will work
+            <br> <img src="img/4.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+        </p>
+        <p>
+            This is how your data looks like after adding it to the QGIS
+            <br> <img src="img/5.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+        </p>
         </div>
     </section>
-    <section id="practice">     
+    <section id='Extract'>
         <div class="container mt-5">
-        <h5> <strong>Practice of Image Classification</strong> </h5>
-        
-       <ol>
-           <li><h6>Create the Training Input file</h6>
-            <p> Download the data from Sceibo, then open the QGIS and the Semi-Automatic Classification plug-in, and then you will see the tool bar and the control dock of SCP.</p>
-            <img src="SCP.PNG" alt="SCP plug-in" style='max-width:50%; height:auto;'> 
-            <br><small class="text-secondary">Fig 15. SCP toolbar and dock window</small>
-            <br>
-            Load your raster by clicking the button <img src="SCP_window.PNG" alt="Plug-in window" srcset=""> in the SCP toolbar. Select bandset in the pop-up window and load raster data in multiple band list drop-down selection.
-            On the left side of dock panel, there are three tabs - home, training input, and classification. Go to tab <strong>Training input</strong> then select the button <strong> create a new training set</strong>
-            <img src="newset.PNG" alt="create new sets button" >, naming your training set file and save.
-            <br>
-            <img src="scp_dock_ts.png" class='mt-2'alt="SCP Dock" style='max-width:30%; height:auto;'>
-            <br><small class="text-secondary">Fig 16. Gnerate Training sets</small>
-            <div class="mb-2"></div>
-        </li>
-           <li><h6>Create Region of interest</h6>
-            <p> We are going to create Regions of Interest (ROIs). In SCP, each ROI is registered with a CID 
-                (Class ID), then several CIDs can categorize into a land cover class through a MID (Macroclass),
-                 namely MID is the land cover. A good training dataset has the representative signature which can 
-                 identify types of land cover. Normally, a land cover has a certain variety in its 
-                 spectrum value due to the slight difference in texture or angle. For example, both 
-                 banana tree and bush can be classified into vegetation, but they have slightly 
-                 different spectral characteristics. Therefore, we need to collect several ROIs to 
-                 achieve a better classification result. The table below is our designed classification:
-                <div class="row">
-                    <div class="col-md-8">
-                        <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col">Macroclass name</th>
-                                <th scope="col">MID</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Road</td>
-                                <td>1</td>
-                              </tr>
-                              <tr>
-                                <td>Build-up</td>
-                                <td>2</td>
-                              </tr>
-                              <tr>
-                                <td>Water</td>
-                                <td>3</td>
-                              </tr>
-                              <tr>
-                                <td>Forest</td>
-                                <td>3</td>
-                              </tr>
-                              <tr>
-                                <td>Agriculture</td>
-                                <td>4</td>
-                              </tr>
-                              <tr>
-                                <td>Green space</td>
-                                <td>5</td>
-                              </tr>
-                              <tr>
-                                <td>Other</td>
-                                <td>6</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                    </div>
-                </div>
-            </p>
-            <p class="mt-2">
-                Left-click on the ROI button on the SCP toolbar, then draw on the map with left clicks, then use the right-click to finish the sketching. You will see a polygon which is a temporary file. To save the file, type the land cover classification name, and other id information in the bottom section.
-                <br><img class="mt-3" src="training.gif" alt="Classification Information" style='max-width:30%; height:auto;'>
-                <br><small class="text-secondary"> Fig 17. Create ROI</small>
-                <br><img class="mt-3" src="classify_1.PNG" alt="Classification Information" style='max-width:30%; height:auto;'>
-                <br><small class="text-secondary"> Fig 18. Set ROI Information</small>
-                <br>
-                Finally, click <strong>'save temporary ROI into training input'</strong> <img src="classify_2.PNG" alt="Save into training input">. Repeat the work until you collect enough training sets. There is no standard for how many training sets should be collected, however, you should ensure your training dataset is evenly extracted from the study area.
-                <img class="mt-3" src="classify_3.PNG" style='max-width:50%; height:auto;'>
-                <br><small class="text-secondary">Fig 19. Training sets</small>
-            </p>
-            <div class="mb-2"></div>
-           </li>
-           <li><h6>Create the Class Output</h6>
-            <p>
-                Before running a classiﬁcation (or a preview), set the color of land cover classes that will be displayed in the classiﬁcation raster. 
-                Go to the macroclass list and double click on the color in SCP dock and select a suitable color. 
-                <br><img class="mt-3"src="color.png" alt="Color setting"  style='max-width:50%; height:auto;'>
-                <br><small class="text-secondary">Fig 20. Change Color of Classification</small>
+            <h5 class="mb-3"><strong>Data preprocessing - Extract area and bands</strong></h5>
+            <small><span class="text-light bg-dark p-1 mb-2" > *This is an extended section for understanding data extraction. Please read the section and nooperation is needed</span></small>
+            <p> The imagery that you download often comes with a huge file size, but we don't always need to use the whole imagery to classify. 
+                Therefore, we need some steps to extract the certain parts only for classify and analysis. By doing so, we can reduce the burden of computation and enhance the efficiency of workflow.
             </p>
             <p>
-                Then go to the tab classification, and select algorithm for classification, in our case, we choose <strong>Maximum Likelihood</strong>  in algorithm dropdown. If you want to preview the result, go to the SCP toolbar, and select preview
-                <img src="preview.PNG" alt="preview">.
+                To do this we need to click on the SCP > click Band set > here you will see menu of the Semi Automatic Classification window. 
+                <br> <img src="img/6.png" alt="" class="my-2" style="max-width:70%; height:auto;">
             </p>
             <p>
-                In this stage, you can modify your training dataset by deleting or adding polygons, the result won't generate a file.
-                Now let's generate the result by clicking <strong>run</strong> in the classification tab. Then you will get your result!
-                <br><img class="mt-3" src="Result1.PNG" alt="" srcset="">
-                <br><small class="text-secondary">Fig 21. Result</small>
-                   
-            <div class="mb-2"></div>
-           </li>
-       </ol>
-    
+                Click on the refresh band sat and you will see the list of band set loaded to the QGIS as seen below
+                <br> <img src="img/7.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Now select the bands which you want to clip and work with in QGIS. Here we have selected the first four bands (RGB) because for land cover classification these bands are enough to classify the image. Then click on the plus sign (Add band to Band set) It will create “Band set 1”, as seen below. 
+                <br> <img src="img/8.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                After this click on the Preprocessing tool in the left and click on the Clip Multiple Raster. Here you can see the select input band set “1”. It is the same band set which we have created before. You can see the clip coordinates below in which we can enter the coordinates of our area of interest to be clipped or we can directly draw our area of interest inside the window. Here we will draw our study area as we don´t have the coordinates of our area of interest.
+                <br> <img src="img/9.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                By clicking on one side of the image and then right click on other side which you want to clip a rectangular shape of area will be show that defines coordinates, which we can clip as below. Click run and it will clip the study area
+                <br> <img src="img/10.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                The area of interest with the selected bands has been clipped and can be seen below and new layers of this clip area had been added automatically to QGIS layers window
+                <br> <img src="img/11.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+        </div>
+    </section>
+    <section id='Composite'>
+        <div class="container mt-5">
+            <h5 class="mb-3"><strong>Data preprocessing - Band Composite</strong></h5>
+            <p>
+                Now we are going to convert the band set into the Surface Reflectance. For this purpose, we will click on SCP > click on Preprocessing > click on Sentinel-2, because we are working with Sentinel-2 data 
+                <br> <img src="img/12.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>In the input directory select the directory which your clipped data is. In the Meta data select the directory where your meta data of the imagery is (it is in the same folder as an XML Document which you have extracted after downloading). Click on the Apply DOS1 Atmospheric Correction. Uncheck the create band set and use band tools. Click Run and give the output location. Running will be started
+                <br> <img src="img/13.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            
+            <p>The output can be seen as RT file
+                <br> <img src="img/14.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            
+            <p>Remove the rest of the bands and the Clipped layers and just select the RT layers to define the Band set in which we have to define the combination of band set in order to classify this imagery.
+                <br><br>Click on SCP > click Band set > click on Refresh list
+                <br> <img src="img/15.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            
+            <p>Add these to the refreshed bands to the Band set 1. But first delete the Band set one bands which we have added during clipping the study area. Go to the right-side menu below and click on the reset. It will delete the previous bands from QGIS
+                <br> <img src="img/16.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>Now select all the bands and add it to the Band set 1, as shown below
+                <br> <img src="img/17.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>Click on the Band set tools at the bottom and select Sentinel-2 as shown below
+                <br> <img src="img/18.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>The centre wavelength has been defined here and can be seen which is useful for the spectral signature. That’s it for the band set 
+                <br> <img src="img/19.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>Now we have defined the band set and we can hide the existed layers or bands in the QGIS by unchecking it.
+                <br><br> Go to the SCP bar above which is RGB, to see the colour composite. Select the band set 3-2-1 which created a Virtual Band Set 1, a colour composite image as shown below. We can change the colour composite such as 2-3-1 to see the false colour
+                <br> <img src="img/20.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+        </div>
+    </section>
+    <section id='Classification'>
+        <div class="container mt-5">
+            <h5 class="mb-3"><strong>Image Classification</strong></h5>
+            <h6 class="mb-3">Create Training samples</h6>
+            <p>
+                Now its time to create training input. To do so click on Training Input > click Create a new training input as shown below. Give a name and an output location to save it
+                <br> <img src="img/21.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Now we will create training samples for different classes in this imagery. We will create four classes in this image namely:
+                <ol>
+                    <li>Water</li>
+                    <li>Vegetation</li>
+                    <li>Baren Soil</li>
+                    <li>Settlements </li>
+                </ol>
+                Here we have two types of classes - Macro class and Class.  The difference between them is that Macro class is the head class of the class.
+                <br> <img src="img/22.png" alt="" class="my-2" style="max-width:50%; height:auto;">
+            </p>
+            <p>
+                So, lets start with creating the training samples for the Region of Interests ROI. Click on the Create a ROI polygon. There are two ways to do so this, one is to create it manually by drawing polygons for each class and the other is to create it automatically just by playing with the Spectral Distance Value
+                <br><br> First, we will do it manually
+                <br> <img src="img/23.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                It will activate the creating ROI manual polygon. Left click to start the polygon and right click to end it. Below you can see we have a created our first polygon for one class
+                <br> <img src="img/24.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Now save this training sample by setting the Macro class and Class information and save it
+                <br> <img src="img/25.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                By saving it will save the information such as color, ID and type. In the image below we can see that Forest is the Class of Macro Class (Vegetation). Try to take as much training samples you can as it will make better the accuracy of your classification, at least take 10 to 20 training samples. You can create more training samples of the same class by using the same method except by not changing its Macro Class ID (MC ID) and Class ID (C ID). These should be the same for one class no matter how many training samples you are creating
+                <br> <img src="img/26.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                We can see the information about the Macro Class and Class. In the image below Vegetation is the Macro Class of the Class (Forest)
+                <br> <img src="img/27.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Second method of creating training samples of the ROI by using the ROI algorithm. It is much easier and quicker then drawing a polygon for each ROI. This algorithm selects all the pixel as a ROI in an image with the spectral distance less than the specified limit such as 0.1 in this case
+                
+            </p>
+            <h6 class="mb-3">Spectral Signature:</h6>
+            <p>
+                It is the amount of reflected energy measure by the remote sensing technology. Different objects have different spectral response or values such as Water bodies have different spectral values then Vegetation and urban areas. So, by using this spectral signature values we can classify an image into different classes. 
+                <br> <img src="img/28.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                By using the ROI algorithm select the spectral distance of your choice for example in this case we set it 0.08. After setting the Spectral distance click on any where in the image as shown below. It will make polygons of the region with the spectral distance less then 0.08 in that limited area
+                <br> <img src="img/29.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Set its Macro class and Class name along with their ID´s. ROI has been created for the Built up class in the image as a black region can be seen below. So it quickly create the ROI´s on the bases of the spectral distance values
+                <br> <img src="img/30.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                The spectral distance has to be set on by doing your own observation. Just play with its value increase it or decrease it and observe that which area it is taking in ROI`s and which is skipping it. Try to set its value as fit as possible so that it can take the exact area of ROI which it should. By changing its spectral distance value, you can see the result for the water bodies as below
+                <br> <img src="img/31.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Again, take at least 10 to 20 training samples for this class by following the same instructions above.
+                <br><br> Follow the same steps and create another class with the Macro class name (Vegetation) and Class name (Agriculture)
+                <br> <img src="img/32.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Create a Macro class with the name Barren Soil and Class with the name Low Vegetation
+                <br> <img src="img/33.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Take 10 to 20 training samples for this class too by not changing its Macro and Class ID.
+                <br><br>That’s all we have finished the training samples for the ROIs by creating these four Macro Classes.
+                <br><br> Now we can see each Class spectral values by selecting all the Classes and click on the Add highlighted signatures to spectral signature plot
+                <br> <img src="img/34.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                After clicking on the highlighted signature, you can see each class signature in the plot. We can show and hide spectral signature plot of each class by checking and unchecking the box.  We can compare and assess the spectral distance by observing the plot
+                <br> <img src="img/35.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                We can also display the whole statistics of the spectral distance by clicking on Calculate spectral distances
+                <br> <img src="img/36.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                We can change colour for each class by double clicking on the colour of the class
+                <br> <img src="img/37.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                After changing the colours, we can see each class
+                <br> <img src="img/38.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                All is set now we are going to use the classification algorithm. There are three algorithms here from which we can select. Here we will select the Maximum Likelihood Classification.
+            </p>
+            <h4 class="mb-3">Maximum Likelihood Classification</h4>
+            <p>
+                This algorithm used to predict the class label y that maximizes the likelihood of our observed data x (Training samples of the ROI).
+                <br> By activating the Classification preview we can see our image classification classes. Click on any area in the image and it will show you the classification preview. Classes can be seen on the left side. We have used Class ID which is the subclass of the Macro Class. Classification preview will help us in the verification of the classified image. If we are satisfied with the classification preview, we can run it and the image will be classified otherwise select the ROIs again for a better and accurate classification.
+                Once we are satisfied with the classification, we can create an output of the classification by clicking on the Run tool and give output location and name
+                <br> <img src="img/39.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                We can also select the Macro class ID to show the classification preview of the Macro class.
+                <br> <img src="img/40.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Once we are satisfied with the classification, we can create an output of the classification by clicking on the Run tool and give output location and name
+                <br> <img src="img/41.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                It is saved as a tiff format which can be open in QGIS. In this classification there could be some accuracy limitation such as assigning the wrong class to an area. As you can see that Built up and Water class is appearing too much in the classified image. It is because that we have only taken one ROIs and training sample for each class. We did so because it would take much time for you to follow each ROI creation. Therefore, we have just showed you how to do it accurately by creating a greater number of ROIs. Remember the more the number of training samples the better is the classification. 
+                <br> <img src="img/42.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                You can save it in many formats
+                <br> <img src="img/43.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+            <p>
+                Click on the format and you will see a list of formats which you can export this output
+                <br> <img src="img/44.png" alt="" class="my-2" style="max-width:70%; height:auto;">
+            </p>
+        </div>
+    </section>
+    <section class="container mt-5 text-light bg-info">
+        <div class="p-2">
+            <p><h6>Congradulation!</h6> You've finished the tutoriol. 
+            We hope that we have added some new skills to your existed knowledge. If you have any question regarding our tutorials please do not hesitate to ask. You can ask question in general also if you are interested in our topic. We will try our best to answer to your question. Thank you and best of luck for your bright future.</p>
         </div>
     </section>
     
